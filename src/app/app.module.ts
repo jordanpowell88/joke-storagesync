@@ -8,9 +8,10 @@ import { RootStoreModule } from "./root-store/root-store.module";
 import { HttpClientModule } from "@angular/common/http";
 import { CategoriesComponent } from "./categories/categories.component";
 import { MatSelectModule } from "@angular/material/select";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoaderComponent } from "./loader/loader.component";
 import { MatCardModule } from "@angular/material/card";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   imports: [
@@ -19,9 +20,10 @@ import { MatCardModule } from "@angular/material/card";
     RootStoreModule,
     HttpClientModule,
     MatSelectModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     AppComponent,
