@@ -1,12 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { select, Store } from "@ngrx/store";
+import { createAction, props, select, Store } from "@ngrx/store";
 import { take } from "rxjs/operators";
 import { getCategories } from "../root-store/joke-store/joke.actions";
 import {
   selectCategories,
   selectSelectedCategory
 } from "../root-store/joke-store/joke.selectors";
+
+export const setSelectedCategory = createAction(
+  "[JOKE COMPONENT] Set Selected Category",
+  props<{ selectedCategory: string }>()
+);
 
 @Component({
   selector: "app-categories",
@@ -31,5 +36,9 @@ export class CategoriesComponent implements OnInit {
         selectedCategory =>
           (this.selectedCategory = new FormControl(selectedCategory))
       );
+
+    this.selectedCategory.valueChanges.subscribe(selectedCategory =>
+      this.store.dispatch(setSelectedCategory({ selectedCategory }))
+    );
   }
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { getRandomJoke } from "../root-store/joke-store/joke.actions";
-import { selectJoke } from "../root-store/joke-store/joke.selectors";
+import {
+  selectIsLoading,
+  selectJoke
+} from "../root-store/joke-store/joke.selectors";
 
 @Component({
   selector: "app-joke",
@@ -10,6 +13,7 @@ import { selectJoke } from "../root-store/joke-store/joke.selectors";
 })
 export class JokeComponent implements OnInit {
   joke$ = this.store.select(selectJoke);
+  loading$ = this.store.select(selectIsLoading);
 
   constructor(private readonly store: Store) {}
 

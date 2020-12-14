@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
+import { setSelectedCategory } from "../../categories/categories.component";
 import {
   getCategories,
   getCategoriesFailed,
@@ -30,6 +31,10 @@ const jokeReducer = createReducer(
     categories,
     isLoading: false,
     error: ""
+  })),
+  on(setSelectedCategory, (state, { selectedCategory }) => ({
+    ...state,
+    selectedCategory
   })),
   on(
     getRandomJokeFailed,

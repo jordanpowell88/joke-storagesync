@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, exhaustMap, map } from "rxjs/operators";
+import { catchError, delay, exhaustMap, map } from "rxjs/operators";
+import { setSelectedCategory } from "../../categories/categories.component";
 import { JokeService } from "../../services/";
 import {
   getCategories,
@@ -34,6 +35,7 @@ export class JokeEffects {
   getJokeByCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getJokeByCategory),
+      delay(2000),
       exhaustMap(action =>
         this.jokeService.getJokeByCategory(action.category).pipe(
           map(joke => getJokeByCategorySuccess({ joke })),
@@ -52,6 +54,14 @@ export class JokeEffects {
           catchError(error => of(getCategoriesFailed({ error })))
         )
       )
+    )
+  );
+
+  setSelectedCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setSelectedCategory),
+      map(action => action.selectedCategory),
+      map(category => getJokeByCategory({ category }))
     )
   );
 }

@@ -1,3 +1,10 @@
-<pre>
-  {{ joke$ | async | json }}
-</pre>
+<div *ngIf="!(loading$ | async)">
+	<mat-card *ngIf="(joke$ | async) as joke">
+		<mat-card-title>Chuck Norris Joke</mat-card-title>
+		<mat-card-subtitle></mat-card-subtitle>
+		<img mat-card-image src="https://images02.military.com/sites/default/files/styles/full/public/media/veteran-jobs/content-images/2016/03/chucknorris.jpg?itok=_J3M4O-S" />
+		<mat-card-content>
+			{{ joke.value }}
+		</mat-card-content>
+	</mat-card>
+</div>
