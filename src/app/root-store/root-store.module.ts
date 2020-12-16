@@ -6,22 +6,31 @@ import {
   StoreModule
 } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
+import { routerReducer, RouterReducerState } from "@ngrx/router-store";
 import { JokeStoreModule } from "./joke-store/joke-store.module";
 import { RootState } from "./root.state";
 import { jokeReducer, JOKE_FEATURE_KEY } from "./joke-store";
 import { localStorageSync } from "ngrx-store-localstorage";
 
-const reducers: ActionReducerMap<RootState> = { joke: jokeReducer };
+interface State extends RootState {
+  router: RouterReducerState<any>;
+}
+
+const reducers: ActionReducerMap<State> = {
+  router: routerReducer,
+  [JOKE_FEATURE_KEY]: jokeReducer
+};
 
 export function localStorageSyncReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
+  reducer: ActionReducer<State>
+): ActionReducer<State> {
   return localStorageSync({
     keys: [{ [JOKE_FEATURE_KEY]: ["selectedCategory"] }],
+    rehydrate: false
   })(reducer);
 }
 
-const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+const metaReducers: Array<MetaReducer<State, any>> = [localStorageSyncReducer];
 
 @NgModule({
   imports: [
