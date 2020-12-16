@@ -7,25 +7,25 @@ const selectJokeFeatureState = createFeatureSelector<JokeState>(
 
 export const selectJoke = createSelector(
   selectJokeFeatureState,
-  state => state.joke
+  state => state?.joke
 );
 
 export const selectIsLoading = createSelector(
   selectJokeFeatureState,
-  state => state.isLoading
+  state => state?.isLoading
 );
 
 export const selectError = createSelector(
   selectJokeFeatureState,
-  state => state.error
+  state => state?.error
 );
 
 export const selectCategories = createSelector(
   selectJokeFeatureState,
-  state => state.categories
+  state => state?.categories
 );
 
 export const selectSelectedCategory = createSelector(
   selectJokeFeatureState,
-  state => state.selectedCategory
+  state => state?.selectedCategory
 );
